@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora FPP para Familias — Privacidad</title>
+<meta name="description" content="Calcula tu Fecha Probable de Parto (FPP) por FUR (Naegele) o por ecografía. Cálculo local, sin cookies, sin tracking.">
+<style>
+  :root{
+    --bg:#fff7f2; --txt:#222; --muted:#666; --line:#efe7df; --ring:#e7f3f3;
+    --pri:#0b8f8f; --err:#b8002f;
+    --rose:#fff0f5; --rose-b:#ffdfe8; --rose-brd:#ffd1e1;
+    --sky:#f0f8ff; --sky-b:#dff3ff; --sky-brd:#cbe8fb;
+    --butter:#fff8e6; --butter-b:#fff1c9; --butter-brd:#f1e0a8;
+    --mint:#eefcf6; --mint-b:#e7f8f1; --mint-brd:#cfeee0;
+    --lav:#f6f3ff; --lav-b:#efe8ff; --lav-brd:#decffd;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}
+  .wrap{max-width:980px;margin:auto;padding:16px}
+  .hero{position:relative;border-radius:22px;padding:22px 16px;background:
+    radial-gradient(1000px 400px at -10% -20%, var(--rose-b), transparent),
+    radial-gradient(800px 360px at 110% -20%, var(--sky-b), transparent),
+    linear-gradient(180deg,#fff,#fff7f2 60%);
+    border:1px solid var(--line); box-shadow:0 12px 42px rgba(0,0,0,.05);
+    overflow:hidden;
+  }
+  h1{font-size:1.6rem;margin:0}
+  .muted{color:var(--muted)}
+  .btn{border:0;border-radius:14px;padding:12px 16px;font-weight:700;cursor:pointer}
+  .btn-primary{background:var(--pri);color:#fff}
+  .btn-ghost{background:transparent;border:1px solid #e6e0da;color:#333}
+  .grid{display:grid;gap:14px}
+  @media(min-width:820px){ .grid-2{grid-template-columns:1fr 1fr} }
+  .card{position:relative;border-radius:20px;border:1px solid var(--line);padding:16px;box-shadow:0 8px 26px rgba(0,0,0,.04);background:#fff}
+  .pastel-rose{background:var(--rose);border-color:var(--rose-brd)}
+  .pastel-sky{background:var(--sky);border-color:var(--sky-brd)}
+  .pastel-butter{background:var(--butter);border-color:var(--butter-brd)}
+  .pastel-mint{background:var(--mint);border-color:var(--mint-brd)}
+  .pastel-lav{background:var(--lav);border-color:var(--lav-brd)}
+  label{font-size:.95rem;margin-bottom:6px;display:block}
+  input{width:100%;padding:11px 12px;border:1px solid #e6e0da;border-radius:14px;background:#fff;font-size:1rem}
+  input:focus{outline:3px solid #e9f7f7;border-color:#bfe5e5}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .out{border:1px dashed #d9e6e6;border-radius:14px;padding:14px;background:#ffffffaa}
+  .kpi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .kpi .box{border:1px solid var(--ring);border-radius:16px;padding:14px;text-align:center}
+  .kpi .big{font-size:1.26rem;font-weight:800}
+  .kpi .box:nth-child(1){background:linear-gradient(180deg,var(--lav),#fff)}
+  .kpi .box:nth-child(2){background:linear-gradient(180deg,var(--mint),#fff)}
+  .note{font-size:.9rem;border-left:4px solid #e6f4f4;padding:10px 12px;background:#fbffff;border-radius:8px}
+  .footer{font-size:.84rem;color:#777;margin:14px 0}
+  .tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#ffffffcc;border:1px solid var(--ring);}
+  .badge-svg{position:absolute;right:12px;top:12px;width:110px;height:110px;opacity:.98;filter:drop-shadow(0 6px 16px rgba(0,0,0,.08))}
+  @media(max-width:480px){
+    .badge-svg{width:88px;height:88px}
+    .card{padding-right:130px}
+  }
+  .no-badge{padding-right:16px}
+  @media(max-width:480px){ .no-badge{padding-right:16px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="hero card pastel-lav">
+    <svg class="badge-svg" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0" stop-color="#ffdfe8"/><stop offset="1" stop-color="#dff3ff"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="200" height="200" rx="24" fill="url(#g1)"/>
+      <path d="M60 120c-10-20 5-48 28-50 18-2 34 10 36 28 2 16-10 28-22 34 10 4 18 12 22 24"
+            fill="none" stroke="#0b8f8f" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="86" cy="76" r="8" fill="#0b8f8f"/>
+    </svg>
+    <h1>Calculadora FPP para Familias</h1>
+    <p class="muted">Tu fecha probable de parto en <b>segundos</b>. Por <b>FUR</b> (Naegele) o por <b>ecografía</b>. Compártela y guárdala.</p>
+    <div class="row" style="margin-top:10px">
+      <a class="btn btn-primary" id="jumpCalc">Empezar cálculo</a>
+      <a class="btn btn-ghost" id="followTT">Sígueme en TikTok</a>
+      <span class="tag">Sin anuncios</span>
+    </div>
+  </section>
+
+  <div style="height:8px"></div>
