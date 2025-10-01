@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.1">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="es"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1">&lt;meta charset="utf-8"&gt;</p>
+<p class="p1">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</p>
+<p class="p1">&lt;title&gt;Calculadora FPP para Familias — Privacidad&lt;/title&gt;</p>
+<p class="p1">&lt;meta name="description" content="Calcula tu Fecha Probable de Parto (FPP) por FUR (Naegele) o por ecografía. Cálculo local, sin cookies, sin tracking."&gt;</p>
+<p class="p1">&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>:root{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--bg:#fff7f2; --txt:#222; --muted:#666; --line:#efe7df; --ring:#e7f3f3;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--pri:#0b8f8f; --err:#b8002f;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--rose:#fff0f5; --rose-b:#ffdfe8; --rose-brd:#ffd1e1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--sky:#f0f8ff; --sky-b:#dff3ff; --sky-brd:#cbe8fb;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--butter:#fff8e6; --butter-b:#fff1c9; --butter-brd:#f1e0a8;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--mint:#eefcf6; --mint-b:#e7f8f1; --mint-brd:#cfeee0;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--lav:#f6f3ff; --lav-b:#efe8ff; --lav-brd:#decffd;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>*{box-sizing:border-box}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.wrap{max-width:980px;margin:auto;padding:16px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.hero{position:relative;border-radius:22px;padding:22px 16px;background:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(1000px 400px at -10% -20%, var(--rose-b), transparent),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>radial-gradient(800px 360px at 110% -20%, var(--sky-b), transparent),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>linear-gradient(180deg,#fff,#fff7f2 60%);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>border:1px solid var(--line); box-shadow:0 12px 42px rgba(0,0,0,.05);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>overflow:hidden;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>h1{font-size:1.6rem;margin:0}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.muted{color:var(--muted)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn{border:0;border-radius:14px;padding:12px 16px;font-weight:700;cursor:pointer}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-primary{background:var(--pri);color:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.btn-ghost{background:transparent;border:1px solid #e6e0da;color:#333}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.grid{display:grid;gap:14px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media(min-width:820px){ .grid-2{grid-template-columns:1fr 1fr} }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.card{position:relative;border-radius:20px;border:1px solid var(--line);padding:16px;box-shadow:0 8px 26px rgba(0,0,0,.04);background:#fff}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pastel-rose{background:var(--rose);border-color:var(--rose-brd)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pastel-sky{background:var(--sky);border-color:var(--sky-brd)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pastel-butter{background:var(--butter);border-color:var(--butter-brd)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pastel-mint{background:var(--mint);border-color:var(--mint-brd)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.pastel-lav{background:var(--lav);border-color:var(--lav-brd)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>label{font-size:.95rem;margin-bottom:6px;display:block}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input{width:100%;padding:11px 12px;border:1px solid #e6e0da;border-radius:14px;background:#fff;font-size:1rem}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>input:focus{outline:3px solid #e9f7f7;border-color:#bfe5e5}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.out{border:1px dashed #d9e6e6;border-radius:14px;padding:14px;background:#ffffffaa}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.kpi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.kpi .box{border:1px solid var(--ring);border-radius:16px;padding:14px;text-align:center}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.kpi .big{font-size:1.26rem;font-weight:800}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.kpi .box:nth-child(1){background:linear-gradient(180deg,var(--lav),#fff)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.kpi .box:nth-child(2){background:linear-gradient(180deg,var(--mint),#fff)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.note{font-size:.9rem;border-left:4px solid #e6f4f4;padding:10px 12px;background:#fbffff;border-radius:8px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.footer{font-size:.84rem;color:#777;margin:14px 0}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.tag{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#ffffffcc;border:1px solid var(--ring);}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* Ilustración inline */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.badge-svg{position:absolute;right:12px;top:12px;width:110px;height:110px;opacity:.98;filter:drop-shadow(0 6px 16px rgba(0,0,0,.08))}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media(max-width:480px){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.badge-svg{width:88px;height:88px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card{padding-right:130px}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* Compensa només on hi ha SVG; a A/B/CTA mantenim padding normal via overrides a sota */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>/* A/B/CTA sense imatge: padding normal */</p>
+<p class="p1"><span class="Apple-converted-space">  </span>.no-badge{padding-right:16px}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>@media(max-width:480px){ .no-badge{padding-right:16px} }</p>
+<p class="p1">&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div class="wrap"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- HERO amb il·lustració inline (SVG) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section class="hero card pastel-lav"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;svg class="badge-svg" viewBox="0 0 200 200" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;defs&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;linearGradient id="g1" x1="0" x2="1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;stop offset="0" stop-color="#ffdfe8"/&gt;&lt;stop offset="1" stop-color="#dff3ff"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/linearGradient&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/defs&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;rect x="0" y="0" width="200" height="200" rx="24" fill="url(#g1)"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;path d="M60 120c-10-20 5-48 28-50 18-2 34 10 36 28 2 16-10 28-22 34 10 4 18 12 22 24"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fill="none" stroke="#0b8f8f" stroke-width="4" stroke-linecap="round"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;circle cx="86" cy="76" r="8" fill="#0b8f8f"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;Calculadora FPP para Familias&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="muted"&gt;Tu fecha probable de parto en &lt;b&gt;segundos&lt;/b&gt;. Por &lt;b&gt;FUR&lt;/b&gt; (Naegele) o por &lt;b&gt;ecografía&lt;/b&gt;. Compártela y guárdala.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="row" style="margin-top:10px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;a class="btn btn-primary" id="jumpCalc"&gt;Empezar cálculo&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;a class="btn btn-ghost" id="followTT"&gt;Sígueme en TikTok&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="tag"&gt;Sin anuncios&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div style="height:8px"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Opció A: sense imatge --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section id="calc" class="grid grid-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card pastel-rose no-badge"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;Opción A — FUR (Última regla) &lt;span class="tag"&gt;Regla de Naegele&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="fur"&gt;FUR (AAAA-MM-DD)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="date" id="fur"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="cycle" style="margin-top:8px"&gt;Duración del ciclo (días)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="number" id="cycle" min="20" max="45" value="28"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" id="calcFUR"&gt;Calcular FPP&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-ghost" id="resetA"&gt;Limpiar&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="out" id="outA" style="margin-top:12px;display:none"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Opció B: sense imatge --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="card pastel-sky no-badge"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2&gt;Opción B — Ecografía &lt;span class="tag"&gt;Según informe&lt;/span&gt;&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="scan"&gt;Fecha de la eco (AAAA-MM-DD)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="date" id="scan"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;label for="ga" style="margin-top:8px"&gt;Edad gestacional en la eco&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="ga_w" min="4" max="42" placeholder="semanas"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span&gt;sem&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="number" id="ga_d" min="0" max="6" placeholder="días"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span&gt;días&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="row" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-primary" id="calcUS"&gt;Calcular FPP&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="btn btn-ghost" id="resetB"&gt;Limpiar&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="out" id="outB" style="margin-top:12px;display:none"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Resultados amb il·lustració inline --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="card pastel-butter" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;svg class="badge-svg" viewBox="0 0 200 200" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;rect x="0" y="0" width="200" height="200" rx="24" fill="#fff1c9"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;path d="M60 130c14 10 28 10 42 0 10 8 20 8 30 0 0-24-18-40-40-40s-40 16-40 40z"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>fill="#ff9db3" opacity=".8"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;circle cx="92" cy="92" r="8" fill="#333"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;circle cx="116" cy="92" r="8" fill="#333"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;path d="M86 110c10 8 20 8 30 0" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Resultados y seguimiento&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="kpi" id="kpi" style="display:none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="muted"&gt;FPP estimada&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="big" id="kpi_edd"&gt;—&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="muted"&gt;Semanas + días hoy&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="big" id="kpi_ga"&gt;—&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="row" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-ghost" id="share"&gt;Compartir&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button class="btn btn-ghost" id="copy"&gt;Copiar resultado&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span class="tag"&gt;Truco: guarda esta página en tu móvil&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="note" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>La FPP es una &lt;b&gt;estimación&lt;/b&gt;. Cada embarazo es único. Ante dudas, sigue las indicaciones de tu equipo de salud.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- FAQ amb il·lustració inline --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="card pastel-mint" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;svg class="badge-svg" viewBox="0 0 200 200" aria-hidden="true"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;rect x="0" y="0" width="200" height="200" rx="24" fill="#e7f8f1"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;path d="M40 150h120l-12-24H52l-12 24z" fill="#0aa3a3" opacity=".15"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;rect x="52" y="60" width="96" height="56" rx="10" fill="#0aa3a3" opacity=".2"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;circle cx="72" cy="88" r="6" fill="#0b8f8f"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;rect x="84" y="84" width="52" height="8" rx="4" fill="#0b8f8f"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Dudas frecuentes&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;details&gt;&lt;summary&gt;No recuerdo bien la FUR&lt;/summary&gt;&lt;div class="muted"&gt;Usa la &lt;b&gt;Opción B&lt;/b&gt; (ecografía) con las semanas+días del informe.&lt;/div&gt;&lt;/details&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;details&gt;&lt;summary&gt;Mi ciclo es irregular&lt;/summary&gt;&lt;div class="muted"&gt;El ajuste de ciclo ayuda, pero con ciclos muy irregulares confía más en la ecografía.&lt;/div&gt;&lt;/details&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;details&gt;&lt;summary&gt;¿Qué hago con el resultado?&lt;/summary&gt;&lt;div class="muted"&gt;Compártelo, añade la FPP al calendario y guarda la página para ver las semanas + días.&lt;/div&gt;&lt;/details&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- CTA sense imatge --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="card pastel-lav no-badge" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;¿Te acompañamos?&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="muted"&gt;Consejos sencillos de embarazo, lactancia y recién nacido, sin ruido. Sígueme y activa la campanita para nuevas herramientas.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="row" style="margin-top:10px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;a class="btn btn-primary" id="ttCTA"&gt;Abrir mi TikTok&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;a class="btn btn-ghost" id="jumpCalc2"&gt;Volver a calcular&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Bloc de privacitat --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="card pastel-mint" style="margin-top:12px"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Privacidad&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="muted"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>Esta calculadora funciona en &lt;b&gt;tu dispositivo&lt;/b&gt;. No instalamos cookies, no hacemos tracking y &lt;b&gt;no enviamos&lt;/b&gt; datos a ningún servidor.</p>
+<p class="p1"><span class="Apple-converted-space">      </span>El botón de compartir &lt;b&gt;no incluye&lt;/b&gt; la FUR ni datos de ecografía en el enlace.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="footer"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>Hecho con ❤️ para familias. Regla de Naegele: FUR + 280 días; ajusta el ciclo sumando (días de ciclo − 28).</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Reemplaza con tu TikTok si quieres</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const TIKTOK_URL = "https://www.tiktok.com/@";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const passthroughParams = ["utm_source","utm_medium","utm_campaign","ttclid","tt_ref","ref"];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const fmt = (d)=&gt; d ? new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10) : "—";</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const parseDate = (s)=&gt; { if(!s) return null; const d = new Date(s+"T12:00:00"); return isNaN(d)?null:d; };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const addDays = (d, n)=&gt; { const r = new Date(d); r.setDate(r.getDate()+n); return r; };</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const diffDays = (a,b)=&gt; Math.round((a - b)/86400000);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const qp = new URLSearchParams(location.search);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// URL compartida sense dades (privacitat)</p>
+<p class="p1"><span class="Apple-converted-space">  </span>function buildShareURL(){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// No afegim inputs a l’URL; només mantenim UTM/ttclid si ja hi són</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const p = new URLSearchParams(location.search);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>for(const k of passthroughParams){ if(qp.has(k) &amp;&amp; !p.has(k)) p.set(k, qp.get(k)); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return location.origin + location.pathname + (p.toString()?("?"+p.toString()):"");</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function fromFUR(furStr, cycleLen){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fur = parseDate(furStr);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!fur) return {error:"Introduce una FUR válida."};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const adj = (Number(cycleLen)||28) - 28;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const edd = addDays(fur, 280 + adj);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const today = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gaDays = Math.max(0, Math.min(294, diffDays(today, fur)));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const w = Math.floor(gaDays/7), d = gaDays%7;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return {edd, gaDays, w, d, method:"FUR"};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function fromUltrasound(scanStr, w, d){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const scan = parseDate(scanStr);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!scan) return {error:"Introduce una fecha de eco válida."};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gaDays = (Number(w)||0)*7 + (Number(d)||0);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(gaDays&lt;=0) return {error:"Introduce semanas/días de gestación válidos."};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const remaining = 280 - gaDays;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const edd = addDays(scan, remaining);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const today = new Date();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const lmpGuess = addDays(scan, -gaDays);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gaDaysToday = Math.max(0, Math.min(294, diffDays(today, lmpGuess)));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const ww = Math.floor(gaDaysToday/7), dd = gaDaysToday%7;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>return {edd, gaDays:gaDaysToday, w:ww, d:dd, method:"Eco"};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>function renderOut(el, data){</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(data.error){ el.style.display="block"; el.innerHTML = `&lt;span style="color:var(--err)"&gt;${data.error}&lt;/span&gt;`; return; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const eddStr = fmt(data.edd);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.style.display="block";</p>
+<p class="p1"><span class="Apple-converted-space">    </span>el.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;b&gt;FPP:&lt;/b&gt; ${eddStr}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;&lt;b&gt;Semanas y días hoy:&lt;/b&gt; ${data.w} semanas y ${data.d} días&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="muted"&gt;Método: ${data.method}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const kpi = document.getElementById('kpi');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>kpi.style.display='grid';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('kpi_edd').textContent = eddStr;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('kpi_ga').textContent = `${data.w} + ${data.d}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>window._last = {edd: eddStr, ga:`${data.w} semanas y ${data.d} días`, method:data.method};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Navegació</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('jumpCalc').addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('fur').scrollIntoView({behavior:'smooth', block:'start'});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('fur').focus();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('jumpCalc2')?.addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('fur').scrollIntoView({behavior:'smooth', block:'start'});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('fur').focus();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('followTT').addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>location.href = TIKTOK_URL;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('ttCTA').addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>location.href = TIKTOK_URL;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Càlculs</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('calcFUR').addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const fur = document.getElementById('fur').value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const cycle = document.getElementById('cycle').value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data = fromFUR(fur, cycle);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderOut(document.getElementById('outA'), data);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('outB').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// PRIVACITAT: NO modifiquem l’URL amb les dades.</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('calcUS').addEventListener('click', ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const scan = document.getElementById('scan').value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gw = document.getElementById('ga_w').value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const gd = document.getElementById('ga_d').value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data = fromUltrasound(scan, gw, gd);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderOut(document.getElementById('outB'), data);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('outA').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>// PRIVACITAT: NO modifiquem l’URL amb les dades.</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// Compartir/Copiar</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('share').addEventListener('click', async ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const url = buildShareURL();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try{</p>
+<p class="p1"><span class="Apple-converted-space">      </span>await navigator.share({title:'Calculadora FPP', text:'Mi FPP', url});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}catch(e){</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try{ await navigator.clipboard.writeText(url); alert('Enlace copiado.'); }catch(_){}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('copy').addEventListener('click', async ()=&gt;{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!window._last){ alert('Primero calcula la FPP.'); return; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const text = `FPP: ${window._last.edd}\nSemanas y días hoy: ${window._last.ga}\nMétodo: ${window._last.method}`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>try{ await navigator.clipboard.writeText(text); alert('Copiado al portapapeles.'); }catch(e){ alert(text); }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>// PRIVACITAT: no llegim dades de l’URL</p>
+<p class="p1"><span class="Apple-converted-space">  </span>(function initFromURL(){ /* privacidad: sin lectura de FUR/ECO desde la URL */ })();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
